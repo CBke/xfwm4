@@ -697,6 +697,7 @@ loadSettings (ScreenInfo *screen_info)
         {"placement_ratio", NULL, G_TYPE_INT, TRUE},
         {"placement_mode", NULL, G_TYPE_STRING, TRUE},
         {"popup_opacity", NULL, G_TYPE_INT, TRUE},
+        {"lower_on_middleclick", NULL, G_TYPE_BOOLEAN, TRUE},
         {"mousewheel_rollup", NULL, G_TYPE_BOOLEAN, TRUE},
         {"prevent_focus_stealing", NULL, G_TYPE_BOOLEAN, TRUE},
         {"raise_delay", NULL, G_TYPE_INT, TRUE},
@@ -774,6 +775,8 @@ loadSettings (ScreenInfo *screen_info)
         getBoolValue ("focus_hint", rc);
     screen_info->params->focus_new =
         getBoolValue ("focus_new", rc);
+    screen_info->params->lower_on_middleclick =
+        getBoolValue ("lower_on_middleclick", rc);	   
     screen_info->params->mousewheel_rollup =
         getBoolValue ("mousewheel_rollup", rc);
     screen_info->params->prevent_focus_stealing =
@@ -1287,6 +1290,10 @@ cb_xfwm4_channel_property_changed(XfconfChannel *channel, const gchar *property_
                 else if (!strcmp (name, "focus_hint"))
                 {
                     screen_info->params->focus_hint = g_value_get_boolean (value);
+                }
+                else if (!strcmp (name, "lower_on_middleclick"))
+                {
+                    screen_info->params->lower_on_middleclick = g_value_get_boolean (value);
                 }
                 else if (!strcmp (name, "mousewheel_rollup"))
                 {
